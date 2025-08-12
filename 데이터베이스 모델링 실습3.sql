@@ -99,6 +99,8 @@ where treat_no = 1041012
 AND doc_id = 'D104101'
 AND treat_desc = '팔목 화상';
 
+delete from treatment where pat_id = 'P104101' and treat_desc = '팔목 화상';
+
 select * from treatment;
 
 -- Chart
@@ -151,15 +153,15 @@ join nurse as c on a.nur_id = c.nur_id;
 
 -- 문제4. 모든 진료내역에서 환자 이름, 담당의사 이름, 진료내용, 처방내용, 진료날짜를 조회하시오.
 select 
-	pat_name,
-    doc_name,
-    treat_desc,
-    chart_desc,
-    treat_datetime
-from chart as a
+	b.pat_name,
+    c.doc_name,
+    a.treat_desc,
+    d.chart_desc,
+    a.treat_datetime
+from treatment as a
 join patient as b on a.pat_id = b.pat_id
 join doctor as c on a.doc_id = c.doc_id
-join treatment as d on a.treat_no = d.treat_no;
+join chart as d on a.treat_no = d.treat_no;
 
 /*
 	문제5. 모든 진료내역에서 '외과'에서 진료한 내역 가운데 
@@ -167,17 +169,37 @@ join treatment as d on a.treat_no = d.treat_no;
 */
 select 
 	a.treat_no,
-    pat_name,
-    doc_name,
-    treat_desc,
-    chart_desc,
-    treat_datetime
-from chart as a 
-join treatment as b on a.treat_no = b.treat_no
-join patient as c on a.pat_id = c.pat_id
-join doctor as d on a.doc_id = d.doc_id
-where dep_no = '103';
+    b.pat_name,
+    c.doc_name,
+    a.treat_desc,
+    d.chart_desc,
+    a.treat_datetime
+from treatment as a 
+join patient as b on a.pat_id = b.pat_id
+join doctor as c on a.doc_id = c.doc_id
+join chart as d on a.treat_no = d.treat_no
+join department as e on c.dep_no = e.dep_no
+where e.dep_name = '외과';
 
+/*
+	문제6. 모든 진료내역에서 '화상'으로 진료한 내역 가운데 
+    진료번호, 환자이름, 담당의사명, 진료내용, 처방내용, 진료날짜를 조회하시오.
+*/
+select 
+	a.treat_no,
+    b.pat_name,
+    c.doc_name,
+    a.treat_desc,
+    d.chart_desc,
+    a.treat_datetime
+from treatment as a
+join patient as b on a.pat_id = b.pat_id
+join doctor as c on a.doc_id = c.doc_id
+join chart as d on a.treat_no = d.treat_no
+where a.treat_desc like '%화상%';
+
+-- 문제7. 현재 날짜를 기준으로 30세 이상 ~ 40세 미만 환자를 조회하시오.
+select * from patient where ;
 
 
 
