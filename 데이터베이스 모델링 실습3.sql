@@ -199,8 +199,22 @@ join chart as d on a.treat_no = d.treat_no
 where a.treat_desc like '%화상%';
 
 -- 문제7. 현재 날짜를 기준으로 30세 이상 ~ 40세 미만 환자를 조회하시오.
-select * from patient where ;
+select 
+	p.*,
+	Year(now()) - (concat('19', SUBSTRING(p.pat_jumin, 1, 2)) * 1) as age
+from patient as p
+where year(now()) - (concat('19', SUBSTRING(p.pat_jumin, 1, 2)) * 1) >= 30
+AND year(now()) - (concat('19', SUBSTRING(p.pat_jumin, 1, 2)) * 1) < 40
+order by age;		
 
-
-
+select *
+from (
+	select
+		p.*,
+        year(now()) - (concat('19', SUBSTRING(p.pat_jumin, 1, 2)) * 1) as age
+	from patient as p
+) as x
+where x.age >= 30 and x.age < 40
+order by age;
+	 
 
