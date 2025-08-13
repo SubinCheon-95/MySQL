@@ -217,4 +217,32 @@ from (
 where x.age >= 30 and x.age < 40
 order by age;
 	 
+-- 문제8. 모든 전공부서에서 아직 의사ID가 부여되지 않은 의사의 이름과 부서명을 조회하시오.
+select
+	dep_manager,
+    dep_name
+from department a
+left join doctor b on a.dep_no = b.dep_no
+where b.doc_id is null;
 
+/*
+	문제9. 김태희 간호사가 맡고 있는 모든 환자의 이름을 구분자 ^으로 해서 
+    '강동원^고소용^이나영^과 같이 조회하시오.
+*/
+select 
+	nur_name,
+	group_concat(b.pat_name separator '^') as '담당 환자'
+from nurse a
+join patient b on a.nur_id = b.nur_id
+where nur_name = '김태희';
+
+-- 문제10. 가장 많은 환자 수를 담당하는 간호사ID, 간호사 이름, 담당환자수를 조회하시오.
+select 
+	a.nur_id,
+    a.nur_name,
+	count(pat_id) as '담당환자수'
+from nurse a
+join patient b on a.nur_id = b.nur_id
+group by a.nur_id, a.nur_name
+order by 담당환자수 desc
+limit 1;
