@@ -61,6 +61,19 @@ insert into student values ('22421003', '42', 'P42103', '강동원', '770314-123
 select * from student;
 
 -- 4. course
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101002', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101002', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+insert into course values ('101001', 'P10101', '대학 글쓰기', '2', '100', '본102');
+
+select * from course;
+
 
 -- enrollment
 
